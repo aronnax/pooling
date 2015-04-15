@@ -40,4 +40,4 @@ var Pooled = {
   }
 };
 
-module.exports = Pooled;
+export default Pooled;

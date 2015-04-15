@@ -2,7 +2,7 @@
  * Created by msecret on 4/13/15.
  */
 
-export var Pool = {
+var Pool = {
   acquire() {
     return;
   },
@@ -13,3 +13,5 @@ export var Pool = {
     return;
   }
 };
+
+export default Pool;
