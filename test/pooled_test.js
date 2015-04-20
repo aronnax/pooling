@@ -30,12 +30,22 @@ test('it exists', t => {
 });
 
 test('make() returns a pool with Pool.acquire', t => {
-  var expected = 'poop',
+  var expected = 'testExpected',
       actual;
 
   sandbox.stub(Pool, 'acquire', () => { return expected; });
   actual = Pooled.make();
   t.equal(actual, expected, 'returns expected from Pool.acquire');
+
+  t.end();
+});
+
+test('free() returns undefined', t => {
+  var actual;
+
+  sandbox.stub(Pool, 'release', () => { return; });
+  actual = Pooled.free();
+  t.notOk(actual, 'Returns undefined');
 
   t.end();
 });
