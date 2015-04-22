@@ -29,7 +29,7 @@ test('it exists', t => {
   t.end();
 });
 
-test('make() returns a new pool', t => {
+test('make() returns a new object from the pool', t => {
   var expected = 'testExpected',
       actual;
 
