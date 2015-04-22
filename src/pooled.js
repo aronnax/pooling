@@ -32,11 +32,9 @@ var Pooled = {
   /**
    * The current Pool object for this object prototype
    */
-  pool: {
-    get() {
-      var pool = Pool.getPool(this);
-      return pool;
-    }
+  get pool() {
+    var pool = Pool.getPool(this);
+    return pool;
   }
 };
 

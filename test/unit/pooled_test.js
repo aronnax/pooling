@@ -5,8 +5,8 @@
 import redtape from 'redtape';
 import sinon from 'sinon';
 
-import Pool from '../src/pool';
-import Pooled from '../src/pooled';
+import Pool from '../../src/pool';
+import Pooled from '../../src/pooled';
 
 var sandbox;
 
@@ -29,7 +29,7 @@ test('it exists', t => {
   t.end();
 });
 
-test('make() returns a pool with Pool.acquire', t => {
+test('make() returns a new pool', t => {
   var expected = 'testExpected',
       actual;
 
@@ -46,6 +46,17 @@ test('free() returns undefined', t => {
   sandbox.stub(Pool, 'release', () => { return; });
   actual = Pooled.free();
   t.notOk(actual, 'Returns undefined');
+
+  t.end();
+});
+
+test('get() pool returns the created pool', t => {
+  var expected = 'testExpected',
+    actual;
+
+  sandbox.stub(Pool, 'getPool', () => { return expected; });
+  actual = Pooled.pool;
+  t.equal(actual, expected, 'returns expected from Pool.getPool');
 
   t.end();
 });
