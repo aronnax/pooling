@@ -92,7 +92,7 @@ test('getClassName() should return if className not a string', t => {
  * getOrCreatePool()
  * =============================
  */
-test('should return a Pool object', t => {
+test('getOrCreatePool() should return a Pool object', t => {
   var actual = PoolManager.getOrCreatePool('testProto', {});
 
   t.ok(actual, 'Returned pool is a thing');
@@ -103,7 +103,7 @@ test('should return a Pool object', t => {
   t.end();
 });
 
-test('should create new pools if not already there', t => {
+test('getOrCreatePool() should create new pools if not already there', t => {
   t.equal(PoolManager.totalPools, 0, 'Manager starts off with no pools');
   PoolManager.getOrCreatePool('testProto1', {});
   t.equal(PoolManager.totalPools, 1, 'Manager has a pool added');
@@ -113,7 +113,7 @@ test('should create new pools if not already there', t => {
   t.end();
 });
 
-test('should return the same Pool if already created', t => {
+test('getOrCreatePool() should return the same Pool if already created', t => {
   var testPool1,
       testPool2;
 
@@ -127,3 +127,43 @@ test('should return the same Pool if already created', t => {
   t.end();
 });
 
+/* =============================
+ * getPool()
+ * =============================
+ */
+test('getPool() should return pool of passed classname if it exists ', t => {
+  var expected = {},
+      testClass = 'test',
+      actual;
+
+  PoolManager.pools[testClass] = expected;
+  actual = PoolManager.getPool({}, testClass);
+
+  t.ok(actual, 'It returns something');
+  t.equal(actual, expected, 'The returned pool is the correct one');
+
+  t.end();
+});
+
+test('getPool() returns the correct pool based on the prototype passed in', t => {
+  var expected = {},
+      testClass = 'test',
+      actual;
+
+  sandbox.stub(PoolManager, 'getClassName', () => { return testClass; });
+  PoolManager.pools[testClass] = expected;
+  actual = PoolManager.getPool({});
+
+  t.ok(actual, 'It returns something');
+  t.equal(actual, expected, 'The returned pool is the correct one');
+
+  t.end();
+});
+
+test('getPool() returns null if it can\'t find the pool', t => {
+  let actual = PoolManager.getPool({}, 'poolNotThere');
+
+  t.ok(!actual, 'Returns null');
+
+  t.end();
+});

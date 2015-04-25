@@ -44,7 +44,7 @@ var PoolManager = {
    */
   getPool(objPrototype, poolClassName) {
     var className = poolClassName || this.getClassName(objPrototype);
-    return this.pools[className];
+    return this.pools[className] || null;
   },
 
   createPool(className, objPrototype) {
