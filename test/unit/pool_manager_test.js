@@ -6,7 +6,7 @@
 import redtape from 'redtape';
 import sinon from 'sinon';
 
-import PoolManager from '../../src/pool';
+import PoolManager from '../../src/pool_manager';
 
 var sandbox;
 

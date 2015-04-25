@@ -6,7 +6,8 @@
  * @file pooled Holds the Pooled module
  */
 
-import PoolManager from './pool';
+import PoolManager from './pool_manager';
+import PoolProto from './pool_proto';
 
 /**
  * An object the provides pooling functionality

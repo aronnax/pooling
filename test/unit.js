@@ -3,4 +3,4 @@
  */
 
 import './unit/pooled_test';
-import './unit/pool_test';
+import './unit/pool_manager_test';

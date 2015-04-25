@@ -3,7 +3,18 @@
  */
 
 var PoolManager = {
+  /**
+   * All the current pools, as a hash with the class type as the key.
+   * @static
+   * @type Pool
+   */
   pools: {},
+
+  /**
+   * Count of the current total pools
+   * @static
+   * @type Number
+   */
   get totalPools() {
     return Object.keys(this.pools).length;
   },
