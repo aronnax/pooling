@@ -24,7 +24,7 @@ var test = redtape({
 
 test('it exists', t => {
   t.ok(PoolManager, 'PoolManager exists');
-  t.ok(PoolManager.acquire, 'PoolManager\'s methods exists');
+  t.ok(PoolManager.getPool, 'PoolManager\'s methods exists');
   t.end();
 });
 

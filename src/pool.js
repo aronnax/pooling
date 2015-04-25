@@ -7,32 +7,6 @@ var PoolManager = {
   get totalPools() {
     return Object.keys(this.pools).length;
   },
-  /**
-   * Aquires a free member from the pool. Maps directly to the acquire
-   * pool methodand then the PoolManager.acquire method. Uses a non-standard
-   * Function.name property to obtain the class name.
-   * @static
-   * @param {Object|Array|Function} classMember The object being fetch from
-   * pool
-   * @return {Object|Array|Function} The object being return from the pool
-   */
-  acquire (classMember) {
-    var className,
-        pool;
-
-    try {
-      className = this.getClassName(classMember);
-    } catch (e) {
-      throw new Error(e);
-    }
-    pool = this.getOrCreatePool(className, classMember);
-
-    //return pool.acquireMember();
-  },
-
-  release() {
-    return;
-  },
 
   /**
    * Will get the pool from the current pools by looking up the classname

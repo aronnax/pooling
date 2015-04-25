@@ -37,7 +37,7 @@ var Pooled = {
     if (this._cachedPool) {
       return this._cachedPool;
     }
-    let pool = Pool.getPool(this);
+    let pool = Pool.getOrCreatePool(this);
     this._cachedPool = pool;
     return pool;
   }

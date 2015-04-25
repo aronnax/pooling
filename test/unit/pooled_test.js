@@ -33,7 +33,7 @@ var test = redtape({
 
 test('it exists', t => {
   t.ok(Pool);
-  t.ok(Pool.acquire);
+  t.ok(Pool.getPool);
   t.ok(Pooled);
   t.ok(Pooled.make);
   t.end();
