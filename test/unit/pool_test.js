@@ -6,7 +6,7 @@
 import redtape from 'redtape';
 import sinon from 'sinon';
 
-import Pool from '../../src/pool';
+import PoolManager from '../../src/pool';
 
 var sandbox;
 
@@ -17,23 +17,28 @@ var test = redtape({
   },
   afterEach: (cb) => {
     sandbox.restore();
+    PoolManager.pools = {};
     cb();
   }
 });
 
 test('it exists', t => {
-  t.ok(Pool, 'Pool exists');
-  t.ok(Pool.acquire, 'Pool\'s methods exists');
+  t.ok(PoolManager, 'PoolManager exists');
+  t.ok(PoolManager.acquire, 'PoolManager\'s methods exists');
   t.end();
 });
 
+/* =============================
+ * getClassName()
+ * =============================
+ */
 test('getClassName() returns className if defined', t => {
   var testObj = {},
       expected = 'testClass',
       actual;
 
   testObj.className = expected;
-  actual = Pool.getClassName(testObj);
+  actual = PoolManager.getClassName(testObj);
   t.equal(actual, expected, 'Return expected className property');
 
   t.end();
@@ -44,7 +49,7 @@ test('getClassName() returns "array" if [] passed in', t => {
       expected = 'array',
       actual;
 
-  actual = Pool.getClassName(testMember);
+  actual = PoolManager.getClassName(testMember);
   t.equal(actual, expected, 'Returns string "array"');
 
   t.end();
@@ -55,7 +60,7 @@ test('getClassName() returns "function" if () passed in', t => {
     expected = 'function',
     actual;
 
-  actual = Pool.getClassName(testMember);
+  actual = PoolManager.getClassName(testMember);
   t.equal(actual, expected, 'Returns string "function"');
 
   t.end();
@@ -66,7 +71,7 @@ test('getClassName() returns "object" if {} passed in', t => {
     expected = 'object',
     actual;
 
-  actual = Pool.getClassName(testMember);
+  actual = PoolManager.getClassName(testMember);
   t.equal(actual, expected, 'Returns string "object"');
 
   t.end();
@@ -78,7 +83,47 @@ test('getClassName() should return if className not a string', t => {
       actual;
 
   testMember.className = [];
-  actual = Pool.getClassName(testMember);
+  actual = PoolManager.getClassName(testMember);
   t.equal(actual, expected, 'Returns string "object"');
   t.end();
 });
+
+/* =============================
+ * getOrCreatePool()
+ * =============================
+ */
+test('should return a Pool object', t => {
+  var actual = PoolManager.getOrCreatePool('testProto', {});
+
+  t.ok(actual, 'Returned pool is a thing');
+  t.equal(typeof actual, 'object', 'Returned pool is an object')
+  t.ok(actual.activePool, 'Active pool object is there');
+  t.ok(actual.freePool, 'Free pool object is there');
+
+  t.end();
+});
+
+test('should create new pools if not already there', t => {
+  t.equal(PoolManager.totalPools, 0, 'Manager starts off with no pools');
+  PoolManager.getOrCreatePool('testProto1', {});
+  t.equal(PoolManager.totalPools, 1, 'Manager has a pool added');
+  PoolManager.getOrCreatePool('testProto2', {});
+  t.equal(PoolManager.totalPools, 2, 'Manager has a 2nd pool added');
+
+  t.end();
+});
+
+test('should return the same Pool if already created', t => {
+  var testPool1,
+      testPool2;
+
+  t.equal(PoolManager.totalPools, 0, 'Manager starts off with no pools');
+  testPool1 = PoolManager.getOrCreatePool('testProto', {});
+  t.equal(PoolManager.totalPools, 1, 'Manager has a pool added');
+  testPool2 = PoolManager.getOrCreatePool('testProto', {});
+  t.equal(PoolManager.totalPools, 1, 'Manager has no pool added because its same pool');
+  t.equal(testPool1, testPool2, 'The Pools are equal to one-another');
+
+  t.end();
+});
+

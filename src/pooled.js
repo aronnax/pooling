@@ -30,7 +30,7 @@ var Pooled = {
   },
 
   /**
-   * The current Pool object for this object prototype
+   * The current PoolManager object for this object prototype
    */
   get pool() {
     var pool = Pool.getPool(this);

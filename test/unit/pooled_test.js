@@ -35,7 +35,7 @@ test('make() returns a new object from the pool', t => {
 
   sandbox.stub(Pool, 'acquire', () => { return expected; });
   actual = Pooled.make();
-  t.equal(actual, expected, 'returns expected from Pool.acquire');
+  t.equal(actual, expected, 'returns expected from PoolManager.acquire');
 
   t.end();
 });
@@ -56,7 +56,7 @@ test('get() pool returns the created pool', t => {
 
   sandbox.stub(Pool, 'getPool', () => { return expected; });
   actual = Pooled.pool;
-  t.equal(actual, expected, 'returns expected from Pool.getPool');
+  t.equal(actual, expected, 'returns expected from PoolManager.getPool');
 
   t.end();
 });

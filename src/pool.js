@@ -2,10 +2,14 @@
  * Created by msecret on 4/13/15.
  */
 
-var Pool = {
+var PoolManager = {
+  pools: {},
+  get totalPools() {
+    return Object.keys(this.pools).length;
+  },
   /**
    * Aquires a free member from the pool. Maps directly to the acquire
-   * pool methodand then the Pool.acquire method. Uses a non-standard
+   * pool methodand then the PoolManager.acquire method. Uses a non-standard
    * Function.name property to obtain the class name.
    * @static
    * @param {Object|Array|Function} classMember The object being fetch from
@@ -21,7 +25,7 @@ var Pool = {
     } catch (e) {
       throw new Error(e);
     }
-    //pool = this.acquirePool(className, classMember);
+    pool = this.getOrCreatePool(className, classMember);
 
     //return pool.acquireMember();
   },
@@ -30,8 +34,42 @@ var Pool = {
     return;
   },
 
-  getPool() {
-    return;
+  /**
+   * Will get the pool from the current pools by looking up the classname
+   * on the object prototype.
+   * @param {Object|Array|Function} objPrototype The prototype of the pool
+   * being searched for.
+   * @param {String} poolClassName The name of the pool class
+   * @returns {Pool} The Pool object.
+   */
+  getPool(objPrototype, poolClassName) {
+    var className = poolClassName || this.getClassName(objPrototype);
+    return this.pools[className];
+  },
+
+  createPool(className, objPrototype) {
+    var pool = {
+      activePool: [],
+      freePool: []
+    };
+    this.pools[className] = pool;
+    return pool;
+  },
+
+  /**
+   * Gets the pool of the class type, creating one if it doesn't exists
+   * @static
+   * @param {String} className The name of the class
+   * @param {String} objPrototype The type of object to get the pool from
+   * @return {Pool} The pool of the class type
+   */
+  getOrCreatePool(className, objPrototype) {
+    var pool = this.getPool(objPrototype, className);
+    if (!pool) {
+      pool = this.createPool(className, objPrototype);
+    }
+
+    return pool;
   },
 
   /**
@@ -52,12 +90,12 @@ var Pool = {
         className = 'object';
       }
       else {
-        window.console.error('Aquired Pool class not a string');
-        throw new Error('Aquired Pool class not a string');
+        window.console.error('Aquired PoolManager class not a string');
+        throw new Error('Aquired PoolManager class not a string');
       }
     }
     return className;
   }
 };
 
-export default Pool;
+export default PoolManager;
