@@ -13,6 +13,7 @@ var sandbox;
 var test = redtape({
   beforeEach: (cb) => {
     sandbox = sinon.sandbox.create();
+    Pooled._cachedPool = null;
     cb();
   },
   afterEach: (cb) => {
@@ -57,6 +58,23 @@ test('get() pool returns the created pool', t => {
   sandbox.stub(Pool, 'getPool', () => { return expected; });
   actual = Pooled.pool;
   t.equal(actual, expected, 'returns expected from PoolManager.getPool');
+
+  t.end();
+});
+
+test('get() pool returns a cached pool on 2nd access', t => {
+  var expected = {s: 1},
+      actual,
+      stub;
+
+  stub = sandbox.stub(Pool, 'getPool', () => { return expected; });
+  actual = Pooled.pool;
+  t.equal(actual, expected, 'returns expected from PoolManager.getPool');
+  t.ok(Pooled._cachedPool, 'a cached pool object exists');
+  t.equal(stub.callCount, 1, 'getPool() was called once');
+  actual = Pooled.pool;
+  t.equal(actual, Pooled._cachedPool, 'returned pool is now the cached pool');
+  t.equal(stub.callCount, 1, 'getPool() was still only called once');
 
   t.end();
 });

@@ -13,6 +13,7 @@ import Pool from './pool';
  * @class Pooled
  */
 var Pooled = {
+  _cachedPool: null,
   /**
    * Gets a free object from the pool, enhances it and then returns it.
    * @return {Object|Array|Function} The object being returned from the pool
@@ -33,7 +34,11 @@ var Pooled = {
    * The current PoolManager object for this object prototype
    */
   get pool() {
-    var pool = Pool.getPool(this);
+    if (this._cachedPool) {
+      return this._cachedPool;
+    }
+    let pool = Pool.getPool(this);
+    this._cachedPool = pool;
     return pool;
   }
 };
