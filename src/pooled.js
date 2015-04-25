@@ -6,7 +6,7 @@
  * @file pooled Holds the Pooled module
  */
 
-import Pool from './pool';
+import PoolManager from './pool';
 
 /**
  * An object the provides pooling functionality
@@ -37,7 +37,7 @@ var Pooled = {
     if (this._cachedPool) {
       return this._cachedPool;
     }
-    let pool = Pool.getOrCreatePool(this);
+    let pool = PoolManager.getOrCreatePool(this);
     this._cachedPool = pool;
     return pool;
   }
