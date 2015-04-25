@@ -167,3 +167,27 @@ test('getPool() returns null if it can\'t find the pool', t => {
 
   t.end();
 });
+
+/* =============================
+ * createPool()
+ * =============================
+ */
+test('createPool() should update the pools object with the new pool', t => {
+  var testClassName = 'testPool';
+
+  let actual = PoolManager.createPool(testClassName, {});
+  t.ok(actual, 'Returns something');
+  t.ok(PoolManager.pools[testClassName], 'The pool exists on the manager\'s pool property');
+
+  t.end();
+});
+
+test('createPool will create a pool of initial size passed in', t => {
+  var expected = 25,
+      actual = PoolManager.createPool('testPool', {}, expected);
+
+  t.equal(actual.freePool.length, expected, 'The pools free pool length is equal to the expected');
+
+  t.end();
+});
+

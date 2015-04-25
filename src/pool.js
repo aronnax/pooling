@@ -47,11 +47,19 @@ var PoolManager = {
     return this.pools[className] || null;
   },
 
-  createPool(className, objPrototype) {
-    var pool = {
-      activePool: [],
-      freePool: []
-    };
+  /**
+   * Creates a new pool of a certain type
+   * @static
+   * @param {Sting} className The name of the class
+   * @param {Number} initialSize The initial size to make the free pool
+   * @return {Pool} The new pool of the class type
+   */
+  createPool(className, objPrototype, initialSize) {
+    var pool = {freePool: [], activePool: []};
+    // overwrite class name to the actual class name, not Pool
+    pool.className = className;
+    pool.freePool[initialSize - 1 || 10] = {};
+
     this.pools[className] = pool;
     return pool;
   },
