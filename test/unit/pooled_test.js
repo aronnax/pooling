@@ -8,12 +8,21 @@ import sinon from 'sinon';
 import Pool from '../../src/pool';
 import Pooled from '../../src/pooled';
 
-var sandbox;
+var sandbox,
+    testPool;
 
 var test = redtape({
   beforeEach: (cb) => {
     sandbox = sinon.sandbox.create();
     Pooled._cachedPool = null;
+    testPool = {
+      acquireMember() {
+        return {};
+      },
+      releaseMember() {
+        return {};
+      }
+    };
     cb();
   },
   afterEach: (cb) => {
@@ -34,9 +43,10 @@ test('make() returns a new object from the pool', t => {
   var expected = 'testExpected',
       actual;
 
-  sandbox.stub(Pool, 'acquire', () => { return expected; });
+  sandbox.stub(Pool, 'getPool', () => { return testPool; });
+  testPool.acquireMember = () => { return expected; };
   actual = Pooled.make();
-  t.equal(actual, expected, 'returns expected from PoolManager.acquire');
+  t.equal(actual, expected, 'returns expected from Pool.acquireMember');
 
   t.end();
 });
@@ -44,7 +54,8 @@ test('make() returns a new object from the pool', t => {
 test('free() returns undefined', t => {
   var actual;
 
-  sandbox.stub(Pool, 'release', () => { return; });
+  sandbox.stub(Pool, 'getPool', () => { return testPool; });
+  testPool.releaseMember = () => { return {}; };
   actual = Pooled.free();
   t.notOk(actual, 'Returns undefined');
 

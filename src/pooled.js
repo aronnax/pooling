@@ -19,14 +19,14 @@ var Pooled = {
    * @return {Object|Array|Function} The object being returned from the pool
    */
   make() {
-    return Pool.acquire(this);
+    return this.pool.acquireMember();
   },
 
   /**
    * Releases a used object, cleans it, and returns it to the free pool.
    */
   free() {
-    Pool.release(this);
+    this.pool.releaseMember();
     return undefined;
   },
 
