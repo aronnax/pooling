@@ -26,8 +26,25 @@ function _createMember(className) {
 }
 
 var PoolProto = {
+  /**
+   * The current pool of active members, a store
+   * @type Object
+   */
   activePool: [],
+  /**
+   * A free pool of objects ready to be used
+   * @type Array
+   */
   freePool: [],
+
+  init(initialSize, basePrototype, className) {
+    this.freePool = [];
+    this.activePool = [];
+    this.basePrototype = basePrototype;
+
+    this.expandPool(initialSize);
+    return this;
+  },
 
   /**
    * Expand the free pool array by a certain amount

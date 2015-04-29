@@ -24,6 +24,39 @@ var test = redtape({
 });
 
 /* =============================
+ * init()
+ * =============================
+ */
+test('should set the active and free pools to empty arrays', t => {
+  var testPool = PoolProto.init(25, {});
+
+  t.ok(testPool.freePool, 'inits a free pool array');
+  t.ok(testPool.activePool, 'inits an active pool array');
+
+  t.end();
+});
+
+test('should set its base prototype as the object passed in', t => {
+  var testPool,
+      expected = {s: 1};
+
+  testPool = PoolProto.init(25, expected);
+
+  t.equal(testPool.basePrototype, expected, 'the basePrototype equals passed in one');
+
+  t.end();
+});
+
+test('calls expandPool on itself', t => {
+  var stub = sandbox.stub(PoolProto, 'expandPool', () => { return; });
+
+  PoolProto.init(25, {});
+  t.ok(stub.calledOnce, 'the expandPool method was called once');
+
+  t.end();
+});
+
+/* =============================
  * expandPool()
  * =============================
  */
