@@ -73,7 +73,7 @@ var PoolManager = {
   getClassName (classMember) {
     var className = classMember.className;
     if (typeof className !== 'string') {
-      if (window.toString.call(classMember) === '[object Array]') {
+      if (Array.isArray(classMember)) {
         className = 'array';
       }
       else if (typeof classMember === 'function') {
@@ -83,7 +83,7 @@ var PoolManager = {
         className = 'object';
       }
       else {
-        window.console.error('Aquired PoolManager class not a string');
+        console.error('Aquired PoolManager class not a string');
         throw new Error('Aquired PoolManager class not a string');
       }
     }
