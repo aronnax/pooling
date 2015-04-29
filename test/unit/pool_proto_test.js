@@ -27,7 +27,7 @@ var test = redtape({
  * init()
  * =============================
  */
-test('should set the active and free pools to empty arrays', t => {
+test('init() should set the active and free pools to empty arrays', t => {
   var testPool = PoolProto.init(25, {});
 
   t.ok(testPool.freePool, 'inits a free pool array');
@@ -36,7 +36,7 @@ test('should set the active and free pools to empty arrays', t => {
   t.end();
 });
 
-test('should set its base prototype as the object passed in', t => {
+test('init() should set its base prototype as the object passed in', t => {
   var testPool,
       expected = {s: 1};
 
@@ -47,7 +47,7 @@ test('should set its base prototype as the object passed in', t => {
   t.end();
 });
 
-test('calls expandPool on itself', t => {
+test('init() calls expandPool on itself', t => {
   var stub = sandbox.stub(PoolProto, 'expandPool', () => { return; });
 
   PoolProto.init(25, {});
@@ -73,7 +73,7 @@ test('expandPool() should expand the pool by the amount passed in', t => {
 });
 
 // TODO this should use the config object
-test('should expand the pool by a default if not amount is passed in', t => {
+test('expandPool() should expand the pool by a default if not amount is passed in', t => {
   var expected = 25;
 
   PoolProto.expandPool();
@@ -86,7 +86,7 @@ test('should expand the pool by a default if not amount is passed in', t => {
  * acquireMember()
  * =============================
  */
-test('should return instance of base prototype', t => {
+test('acquireMember() should return instance of base prototype', t => {
   var expected = {s: 1, className: 'test'},
       testPool,
       actual;
@@ -99,7 +99,7 @@ test('should return instance of base prototype', t => {
   t.end();
 });
 
-test('should expand the pool if it gets down to 0 members', t => {
+test('acquireMember() should expand the pool if it gets down to 0 members', t => {
   var testPool = PoolProto.init(1, {});
 
   t.equal(testPool.freePool.length, 1, 'free pool starts out with one');
@@ -111,7 +111,7 @@ test('should expand the pool if it gets down to 0 members', t => {
   t.end();
 });
 
-test('should add the member to the active pool', t => {
+test('acquireMember() should add the member to the active pool', t => {
   var testPool = PoolProto.init(1, {});
 
   t.equal(testPool.activePool.length, 0, 'active pool starts at 0');
@@ -125,7 +125,7 @@ test('should add the member to the active pool', t => {
  * releaseMember()
  * =============================
  */
-test('should add a member to the free list and remove from the active list', t => {
+test('releaseMember() should add a member to the free list and remove from the active list', t => {
   var testProto = {
       className: 'testProto'
     },

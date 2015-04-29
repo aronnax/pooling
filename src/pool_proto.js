@@ -3,6 +3,8 @@
  * Created by msecret on 4/25/15.
  */
 
+import util from './util';
+
 function _createMember(className) {
   /*jshint validthis:true */
   var toreturn;
@@ -91,7 +93,7 @@ var PoolProto = {
 
     released = this.activePool.remove(member);
     // TODO util
-    //util.cleanAnything(released);
+    util.cleanAnything(released);
     this.freePool.push(released);
   }
 };
