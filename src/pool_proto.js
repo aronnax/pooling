@@ -70,8 +70,29 @@ var PoolProto = {
       this.expandPool();
     }
     var member = this.freePool.pop();
+    // TODO store
     this.activePool.push(member);
     return member;
+  },
+
+  /**
+   * Releases a member back to the pool, adding it to free pools and taking
+   * away from active pool.
+   * @param {Object} member The object to release
+   */
+  releaseMember(member) {
+    // TODO store
+    var activeMember = this.activePool.get(member),
+      released;
+
+    if (!activeMember) {
+      throw new Error('Member not found, cannot be released');
+    }
+
+    released = this.activePool.remove(member);
+    // TODO util
+    //util.cleanAnything(released);
+    this.freePool.push(released);
   }
 };
 

@@ -99,7 +99,7 @@ test('should return instance of base prototype', t => {
   t.end();
 });
 
-test('should expland the pool if it gets down to 0 members', t => {
+test('should expand the pool if it gets down to 0 members', t => {
   var testPool = PoolProto.init(1, {});
 
   t.equal(testPool.freePool.length, 1, 'free pool starts out with one');
@@ -117,6 +117,31 @@ test('should add the member to the active pool', t => {
   t.equal(testPool.activePool.length, 0, 'active pool starts at 0');
   testPool.acquireMember();
   t.equal(testPool.activePool.length, 1, 'active pool gets object added');
+
+  t.end();
+});
+
+/* =============================
+ * releaseMember()
+ * =============================
+ */
+test('should add a member to the free list and remove from the active list', t => {
+  var testProto = {
+      className: 'testProto'
+    },
+    testMember,
+    testSize = 25,
+    testPool = PoolProto.init(testSize, testProto);
+
+  testPool.activePool.get = () => { return testProto; };
+  testPool.activePool.remove = () => { return; };
+  testMember = testPool.acquireMember();
+  t.equal(testPool.freePool.length, testSize - 1, 'free pool is one less')
+
+  testPool.releaseMember(testMember);
+  t.equal(testPool.freePool.length, testSize, 'free pool back to original size');
+  // TODO store
+  // t.equal(testPool.activePool.length, 0, 'the active pool is back to zero');
 
   t.end();
 });
