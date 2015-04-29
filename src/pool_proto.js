@@ -18,7 +18,7 @@ function _createMember(className) {
       toreturn = {};
       break;
     default:
-      toreturn = Object.create({});
+      toreturn = Object.create(this.basePrototype);
       break;
   }
 
@@ -59,6 +59,19 @@ var PoolProto = {
       this.freePool.push(item);
     }
 
+  },
+
+  /**
+   * Aquires a member from the free pool
+   * @return {Object|Array|Function} The empty member returned from the pool
+   */
+  acquireMember() {
+    if (this.freePool.length <= 0) {
+      this.expandPool();
+    }
+    var member = this.freePool.pop();
+    this.activePool.push(member);
+    return member;
   }
 };
 

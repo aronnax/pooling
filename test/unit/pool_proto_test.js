@@ -81,3 +81,42 @@ test('should expand the pool by a default if not amount is passed in', t => {
 
   t.end();
 });
+
+/* =============================
+ * acquireMember()
+ * =============================
+ */
+test('should return instance of base prototype', t => {
+  var expected = {s: 1, className: 'test'},
+      testPool,
+      actual;
+
+  testPool = PoolProto.init(25, expected);
+  actual = testPool.acquireMember();
+
+  t.equal(actual.className, expected.className, 'Returned object is same as base prototype');
+
+  t.end();
+});
+
+test('should expland the pool if it gets down to 0 members', t => {
+  var testPool = PoolProto.init(1, {});
+
+  t.equal(testPool.freePool.length, 1, 'free pool starts out with one');
+  testPool.acquireMember();
+  t.equal(testPool.freePool.length, 0, 'free pool goes to 0');
+  testPool.acquireMember();
+  t.equal(testPool.freePool.length, 24, 'free pool goes to 24');
+
+  t.end();
+});
+
+test('should add the member to the active pool', t => {
+  var testPool = PoolProto.init(1, {});
+
+  t.equal(testPool.activePool.length, 0, 'active pool starts at 0');
+  testPool.acquireMember();
+  t.equal(testPool.activePool.length, 1, 'active pool gets object added');
+
+  t.end();
+});
