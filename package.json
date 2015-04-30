@@ -3,6 +3,7 @@
   "version": "0.4.2",
   "description": "General purpose object pooling.",
   "main": "dist/pooling.js",
+  "repository": "git@github.com:aronnax/pooling.git",
   "scripts": {
     "clean": "rm -r dist/*",
     "compile": "babel src/ -s inline -m system -d dist/",
