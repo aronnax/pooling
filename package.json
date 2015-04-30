@@ -1,9 +1,13 @@
 {
   "name": "aronnax-pooling",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "description": "General purpose object pooling.",
-  "main": "index.js",
+  "main": "dist/pooling.js",
   "scripts": {
+    "clean": "rm -r dist/*",
+    "compile": "babel src/ -s inline -m system -d dist/",
+    "bundle": "browserify src/pooled.js -t babelify -o dist/index.js",
+    "compile-bundle": "browserify src/pooled.js -t babelify -t uglifyify -o dist/index.min.js",
     "lint": "eslint src/*.js",
     "test": "testem ci -l chromium"
   },
@@ -14,14 +18,15 @@
   "author": "Marco Segreto <msegreto@miceover.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel": "^5.1.13",
     "babel-eslint": "^3.0.1",
     "babelify": "^6.0.2",
     "browserify": "^9.0.8",
     "eslint": "^0.19.0",
     "redtape": "^1.0.0",
-    "rewireify": "0.0.13",
     "sinon": "^1.14.1",
     "tape": "^4.0.0",
-    "testem": "^0.8.0-0"
+    "testem": "^0.8.0-0",
+    "uglifyify": "^3.0.1"
   }
 }

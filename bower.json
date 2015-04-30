@@ -1,0 +1,21 @@
+{
+  "name": "aronnax-pooling",
+  "version": "0.4.1",
+  "authors": [
+    "msecret <msegreto@miceover.com>"
+  ],
+  "description": "General purpose object pooling",
+  "main": "dist/index.min.js",
+  "keywords": [
+    "gaming",
+    "performance"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
