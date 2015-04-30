@@ -10,7 +10,7 @@
     "bundle": "browserify src/pooled.js -t babelify -o dist/index.js",
     "compile-bundle": "browserify src/pooled.js -t babelify -t uglifyify -o dist/index.min.js",
     "lint": "eslint src/*.js",
-    "test": "testem ci -l phantomjs"
+    "test": "testem ci -s phantomjs"
   },
   "keywords": [
     "gaming",

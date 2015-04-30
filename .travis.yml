@@ -1,7 +1,11 @@
 language: node_js
 node_js:
-  - "0.12"
-  - "0.11"
-  - "0.10"
-  - "0.8"
+- '0.12'
+- '0.11'
+- '0.10'
 install: npm install
+deploy:
+  provider: npm
+  email: msegreto@miceover.com
+  api_key:
+    secure: EoEgXopQH9nnBKOwHgGBKdprP3MnZdLHCGcJQLTmbtRUXFRTXHU8g5lF+ek1z/emyxbEWR3dWun5A7Fxg7uM72YXVtCElSwJaNbTPKHgIcswWqzhN43QIhYm0BuFuyH0sAU4CdE92I6F6p+xy8vI/LRc26fYFiigEBia3TBHAOA=
