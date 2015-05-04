@@ -3,6 +3,8 @@
  * Created by msecret on 4/25/15.
  */
 
+import Store from 'aronnax-store';
+
 import util from './util';
 
 function _createMember(className) {
@@ -33,6 +35,7 @@ var PoolProto = {
    * @type Object
    */
   activePool: [],
+
   /**
    * A free pool of objects ready to be used
    * @type Array
@@ -41,7 +44,7 @@ var PoolProto = {
 
   init(initialSize, basePrototype, className) {
     this.freePool = [];
-    this.activePool = [];
+    this.activePool = Object.create(Store);
     this.basePrototype = basePrototype;
 
     this.expandPool(initialSize);
@@ -72,8 +75,7 @@ var PoolProto = {
       this.expandPool();
     }
     var member = this.freePool.pop();
-    // TODO store
-    this.activePool.push(member);
+    this.activePool.put(member);
     return member;
   },
 
@@ -83,16 +85,14 @@ var PoolProto = {
    * @param {Object} member The object to release
    */
   releaseMember(member) {
-    // TODO store
     var activeMember = this.activePool.get(member),
-      released;
+        released;
 
     if (!activeMember) {
       throw new Error('Member not found, cannot be released');
     }
 
     released = this.activePool.remove(member);
-    // TODO util
     util.cleanAnything(released);
     this.freePool.push(released);
   }

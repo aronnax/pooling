@@ -6,9 +6,10 @@
   "repository": "git@github.com:aronnax/pooling.git",
   "scripts": {
     "clean": "rm -r dist/*",
-    "compile": "babel src/ -s inline -m system -d dist/",
+    "compile": "babel src/ -s inline -m common -d dist/",
     "bundle": "browserify src/pooled.js -t babelify -o dist/index.js",
     "compile-bundle": "browserify src/pooled.js -t babelify -t uglifyify -o dist/index.min.js",
+    "compile-all": "npm run compile && npm run compile-bundle",
     "lint": "eslint src/*.js",
     "test": "testem ci -s phantomjs"
   },
@@ -30,5 +31,8 @@
     "tape": "^4.0.0",
     "testem": "^0.8.0-0",
     "uglifyify": "^3.0.1"
+  },
+  "dependencies": {
+    "aronnax-store": "^0.4.7"
   }
 }

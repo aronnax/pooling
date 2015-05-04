@@ -40,6 +40,7 @@ var PoolManager = {
    * @return {Pool} The new pool of the class type
    */
   createPool(className, objPrototype, initialSize) {
+    // TODO pool
     var pool = {freePool: [], activePool: []};
     // overwrite class name to the actual class name, not Pool
     pool.className = className;
