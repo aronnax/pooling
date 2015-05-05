@@ -3,9 +3,11 @@
  * Created by msecret on 4/25/15.
  */
 
+import functionBind from 'function-bind';
 import redtape from 'redtape';
 import sinon from 'sinon';
 
+import '../setup';
 import PoolProto from '../../src/pool_proto';
 
 var sandbox;
@@ -91,7 +93,8 @@ test('acquireMember() should return instance of base prototype', t => {
       testPool,
       actual;
 
-  testPool = PoolProto.init(25, expected);
+  testPool = Object.create(PoolProto);
+  testPool.init(25, expected);
   actual = testPool.acquireMember();
 
   t.equal(actual.className, expected.className, 'Returned object is same as base prototype');
@@ -100,7 +103,9 @@ test('acquireMember() should return instance of base prototype', t => {
 });
 
 test('acquireMember() should expand the pool if it gets down to 0 members', t => {
-  var testPool = PoolProto.init(1, {});
+  var testPool = Object.create(PoolProto);
+
+  testPool.init(1, {});
 
   t.equal(testPool.freePool.length, 1, 'free pool starts out with one');
   testPool.acquireMember();
@@ -112,7 +117,9 @@ test('acquireMember() should expand the pool if it gets down to 0 members', t =>
 });
 
 test('acquireMember() should add the member to the active pool', t => {
-  var testPool = PoolProto.init(1, {});
+  var testPool = Object.create(PoolProto);
+    PoolProto.init(1, {});
+  testPool.init(1, {});
 
   t.equal(testPool.activePool.length, 0, 'active pool starts at 0');
   testPool.acquireMember();

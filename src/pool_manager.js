@@ -2,6 +2,8 @@
  * Created by msecret on 4/13/15.
  */
 
+import PoolProto from './pool_proto';
+
 var PoolManager = {
   /**
    * All the current pools, as a hash with the class type as the key.
@@ -40,11 +42,9 @@ var PoolManager = {
    * @return {Pool} The new pool of the class type
    */
   createPool(className, objPrototype, initialSize) {
-    // TODO pool
-    var pool = {freePool: [], activePool: []};
+    var pool = Object.create(PoolProto);
     // overwrite class name to the actual class name, not Pool
-    pool.className = className;
-    pool.freePool[initialSize - 1 || 10] = {};
+    pool.init(initialSize, objPrototype, className)
 
     this.pools[className] = pool;
     return pool;

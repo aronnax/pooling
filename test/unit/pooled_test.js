@@ -5,6 +5,7 @@
 import redtape from 'redtape';
 import sinon from 'sinon';
 
+import '../setup';
 import PoolManager from '../../src/pool_manager';
 import Pooled from '../../src/pooled';
 

@@ -3,9 +3,6 @@ node_js:
 - '0.12'
 - '0.11'
 - '0.10'
-branches:
-  only:
-    - master
 install: npm install
 before_deploy: npm run compile-all
 deploy:
@@ -14,6 +11,6 @@ deploy:
   skip_cleanup: true
   api_key:
     secure: X73KWMrn+Xn5qU+iM3mlF+uTFW/JrC6K7MpXDqSM0rdj2WbKG/SeRWLgiL8uSK/u96IZiXm2mWZQ5T6wDcpL9NzLcF5E/kmOs0QiWDKsGmB2g2+yG5tsUbWQ0dLi+gbo6mxU37HdHe1Q7g6/4/2+A3w1Q/AbtJQU+D4Nf9+mx+M=
-
   on:
+    branch: master
     tags: true
