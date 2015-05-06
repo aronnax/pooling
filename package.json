@@ -1,6 +1,6 @@
 {
   "name": "aronnax-pooling",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "General purpose object pooling.",
   "main": "dist/pooled.js",
   "repository": "git@github.com:aronnax/pooling.git",
