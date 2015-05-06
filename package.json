@@ -34,6 +34,6 @@
     "uglifyify": "^3.0.1"
   },
   "dependencies": {
-    "aronnax-store": "^0.4.7"
+    "aronnax-store": "^0.5.0"
   }
 }
