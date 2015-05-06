@@ -90,3 +90,35 @@ test('get() pool returns a cached pool on 2nd access', t => {
 
   t.end();
 });
+
+test('totalActiveObjects() returns number of objects in active pool', t => {
+  var TestClass = Object.create(Pooled);
+
+  t.equal(TestClass.totalActiveObjects(), 0, 'starts out with zero');
+
+  let testInst = TestClass.make();
+
+  t.equal(TestClass.totalActiveObjects(), 1, 'gets one added');
+
+  testInst.free();
+
+  t.equal(TestClass.totalActiveObjects(), 0, 'back to zero');
+
+  t.end();
+});
+
+test('totalFreeObjects() returns number of object in free pool', t => {
+  var TestClass = Object.create(Pooled);
+
+  t.equal(TestClass.totalFreeObjects(), 25, 'starts out with default');
+
+  let testInst = TestClass.make();
+
+  t.equal(TestClass.totalFreeObjects(), 24, 'gets one subtracted');
+
+  testInst.free();
+
+  t.equal(TestClass.totalFreeObjects(), 25, 'back to default');
+
+  t.end();
+});

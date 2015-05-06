@@ -15,6 +15,23 @@ import PoolProto from './pool_proto';
  */
 var Pooled = {
   _cachedPool: null,
+
+  /**
+   * Total number of objects in the active pool.
+   * @return {Number} The number of active objects.
+   */
+  totalActiveObjects() {
+    return this.pool.activePool.length;
+  },
+
+  /**
+   * Returns the number of objects in the free pool.
+   * @return {Number} total
+   */
+  totalFreeObjects() {
+    return this.pool.freePool.length;
+  },
+
   /**
    * Gets a free object from the pool, enhances it and then returns it.
    * @return {Object|Array|Function} The object being returned from the pool
