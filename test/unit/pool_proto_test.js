@@ -44,7 +44,8 @@ test('init() should set its base prototype as the object passed in', t => {
 
   testPool = PoolProto.init(25, expected);
 
-  t.equal(testPool.basePrototype, expected, 'the basePrototype equals passed in one');
+  t.equal(testPool.basePrototype, expected, 'the basePrototype equals passed ' +
+      'in one');
 
   t.end();
 });
@@ -67,19 +68,23 @@ test('expandPool() should expand the pool by the amount passed in', t => {
 
   PoolProto.className = 'testProto';
   PoolProto.expandPool(expected);
-  t.equal(PoolProto.freePool.length, expected, 'The freePool was expanded by correct amount');
+  t.equal(PoolProto.freePool.length, expected,
+      'The freePool was expanded by correct amount');
   PoolProto.expandPool(expected);
-  t.equal(PoolProto.freePool.length, expected * 2, 'The freePool was expanded by correct amount');
+  t.equal(PoolProto.freePool.length, expected * 2,
+      'The freePool was expanded by correct amount');
 
   t.end();
 });
 
 // TODO this should use the config object
-test('expandPool() should expand the pool by a default if not amount is passed in', t => {
+test('expandPool() should expand the pool by a default if not amount is ' +
+    'passed in', t => {
   var expected = 25;
 
   PoolProto.expandPool();
-  t.equal(PoolProto.freePool.length, expected, 'The freePool was expanded by correct amount');
+  t.equal(PoolProto.freePool.length, expected,
+      'The freePool was expanded by correct amount');
 
   t.end();
 });
@@ -97,12 +102,14 @@ test('acquireMember() should return instance of base prototype', t => {
   testPool.init(25, expected);
   actual = testPool.acquireMember();
 
-  t.equal(actual.className, expected.className, 'Returned object is same as base prototype');
+  t.equal(actual.className, expected.className,
+      'Returned object is same as base prototype');
 
   t.end();
 });
 
-test('acquireMember() should expand the pool if it gets down to 0 members', t => {
+test('acquireMember() should expand the pool if it gets down to 0 members',
+    t => {
   var testPool = Object.create(PoolProto);
 
   testPool.init(1, {});
@@ -132,7 +139,8 @@ test('acquireMember() should add the member to the active pool', t => {
  * releaseMember()
  * =============================
  */
-test('releaseMember() should add a member to the free list and remove from the active list', t => {
+test('releaseMember() should add a member to the free list and remove from the '+
+    'active list', t => {
   var testProto = {
       className: 'testProto'
     },

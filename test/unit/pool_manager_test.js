@@ -122,7 +122,8 @@ test('getOrCreatePool() should return the same Pool if already created', t => {
   testPool1 = PoolManager.getOrCreatePool('testProto', {});
   t.equal(PoolManager.totalPools, 1, 'Manager has a pool added');
   testPool2 = PoolManager.getOrCreatePool('testProto', {});
-  t.equal(PoolManager.totalPools, 1, 'Manager has no pool added because its same pool');
+  t.equal(PoolManager.totalPools, 1,
+      'Manager has no pool added because its same pool');
   t.equal(testPool1, testPool2, 'The Pools are equal to one-another');
 
   t.end();
@@ -178,7 +179,8 @@ test('createPool() should update the pools object with the new pool', t => {
 
   let actual = PoolManager.createPool(testClassName, {});
   t.ok(actual, 'Returns something');
-  t.ok(PoolManager.pools[testClassName], 'The pool exists on the manager\'s pool property');
+  t.ok(PoolManager.pools[testClassName],
+      'The pool exists on the manager\'s pool property');
 
   t.end();
 });
@@ -187,7 +189,8 @@ test('createPool will create a pool of initial size passed in', t => {
   var expected = 25,
       actual = PoolManager.createPool('testPool', {}, expected);
 
-  t.equal(actual.freePool.length, expected, 'The pools free pool length is equal to the expected');
+  t.equal(actual.freePool.length, expected,
+      'The pools free pool length is equal to the expected');
 
   t.end();
 });
