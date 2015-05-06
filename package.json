@@ -11,7 +11,8 @@
     "compile-bundle": "browserify src/pooled.js -t babelify -t uglifyify -o dist/index.min.js",
     "compile-all": "npm run compile && npm run compile-bundle",
     "lint": "eslint src/*.js",
-    "test": "testem ci -l phantomjs"
+    "test": "testem ci -l phantomjs",
+    "watch-integration-test": "testem -f test/integration_testem.json"
   },
   "keywords": [
     "gaming",

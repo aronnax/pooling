@@ -27,7 +27,7 @@ var Pooled = {
    * Releases a used object, cleans it, and returns it to the free pool.
    */
   free() {
-    this.pool.releaseMember();
+    this.pool.releaseMember(this);
     return undefined;
   },
 
@@ -38,7 +38,8 @@ var Pooled = {
     if (this._cachedPool) {
       return this._cachedPool;
     }
-    let pool = PoolManager.getOrCreatePool(this);
+    let className = PoolManager.getClassName(this);
+    let pool = PoolManager.getOrCreatePool(className, this);
     this._cachedPool = pool;
     return pool;
   }
