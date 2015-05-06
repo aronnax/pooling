@@ -133,7 +133,3 @@ test('still works when free pool gets emptied', t => {
   t.end();
 });
 
-test('creating multiple objects off the same base don\'t interact', t => {
-
-  t.end();
-});
