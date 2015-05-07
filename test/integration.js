@@ -6,7 +6,7 @@
 import redtape from 'redtape';
 
 import './setup';
-import Pooled from '../src/pooled';
+import {Pooled, PooledClass} from '../src/pooled';
 
 var testClassProto,
     testClassName = 'testClass',
@@ -133,3 +133,93 @@ test('still works when free pool gets emptied', t => {
   t.end();
 });
 
+test('works on un-named classes', t => {
+  var TestClass = Object.create(Pooled, {
+    testProp: {
+      value: 1
+    },
+    testM: {
+      value: function(s) { return this.testProp + s; }
+    }
+  });
+
+  let actual = TestClass.make();
+
+  //t.ok(actual, 'returns an object');
+  //t.equal(actual.testProp, 1, 'test property set to what proptype says');
+  //t.equal(actual.testM(1), 2, 'method works correctly by adding 1');
+
+  t.end();
+});
+
+test('works to init instances', t => {
+  var TestClass = Object.create(Pooled, {
+    className: {
+      value: 'TestClassInit'
+    },
+    init: {
+      value: function(props) {
+        this.propA = props.a;
+      }
+    },
+    testM: {
+      value: function(s) {
+        return this.propA + s;
+      }
+    }
+  });
+  let testClassFactory = function(props) {
+    var s = TestClass.make();
+    s.init(props);
+    return s;
+  };
+  let expected = {a: 1};
+  let actual = testClassFactory(expected);
+
+  t.ok(actual, 'returns an object');
+  t.equal(actual.propA, expected.a, 'property was set to correct value in init');
+  t.equal(actual.testM(2), expected.a + 2, 'test method works correctly');
+
+  t.end();
+});
+
+test('works when applied as protoype to constructor', t => {
+  var Class = function() {
+    this.testP = 1;
+  };
+  Class.prototype.testM = function(s) { return this.testP + s; };
+
+  t.end();
+});
+
+test('works when applied to es6 class', t => {
+  var expected = {a: 1};
+  class TestClasse6 {
+    className: 'TestClasse6'
+
+    constructor(props) {
+      this.propA = props.a;
+    }
+
+    testM(s) {
+      return this.propA + s;
+    }
+  }
+
+  let TestClasse6Factory = function(props) {
+    TestClasse6.prototype.__proto__ = Pooled;
+    TestClasse6.__proto__ = TestClasse6.prototype;
+    var s = TestClasse6.make();
+    s.constructor(expected);
+    return s;
+  }
+
+  let actual = TestClasse6Factory();
+
+  t.ok(actual, 'returns an object');
+  t.equal(actual.propA, expected.a,
+      'property set to value passed in constructor');
+  t.equal(actual.testM(1), expected.a + 1, 'test method works');
+
+  t.end();
+});

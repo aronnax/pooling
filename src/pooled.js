@@ -13,7 +13,7 @@ import PoolProto from './pool_proto';
  * An object the provides pooling functionality
  * @class Pooled
  */
-var Pooled = {
+export var Pooled = {
   _cachedPool: null,
 
   /**
@@ -62,4 +62,5 @@ var Pooled = {
   }
 };
 
-export default Pooled;
+export var PooledClass = function() { };
+PooledClass.prototype = Pooled;

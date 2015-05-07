@@ -19,7 +19,7 @@ function _createMember(className) {
       break;
     case 'Base':
     case 'object':
-      toreturn = {};
+      toreturn = Object.create(this.basePrototype);
       break;
     default:
       toreturn = Object.create(this.basePrototype);

@@ -72,7 +72,7 @@ var PoolManager = {
    * @returns {String} The name of the member
    */
   getClassName (classMember) {
-    var className = classMember.className;
+    var className = classMember.className || classMember.name;
     if (typeof className !== 'string') {
       if (Array.isArray(classMember)) {
         className = 'array';
