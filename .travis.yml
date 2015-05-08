@@ -10,7 +10,7 @@ deploy:
   email: msegreto@miceover.com
   skip_cleanup: true
   api_key:
-    secure: X73KWMrn+Xn5qU+iM3mlF+uTFW/JrC6K7MpXDqSM0rdj2WbKG/SeRWLgiL8uSK/u96IZiXm2mWZQ5T6wDcpL9NzLcF5E/kmOs0QiWDKsGmB2g2+yG5tsUbWQ0dLi+gbo6mxU37HdHe1Q7g6/4/2+A3w1Q/AbtJQU+D4Nf9+mx+M=
+    secure: Z3qOnh7sV3WAg4a7Q1Hb9PBmXkKW/ddYW7q8gQwqhGRnJnKbmTTBjd9/jGp+IuOgHWizIrbEdCozHLxrKcpF6zBcc01YFLI5m4/P55cRvh7+CZpAzPr5RlfMsf5PZcoyPcHjM8DkWBaW0EbPuuFv+GADYNLSz2uPxS2l7w+azgg=
   on:
     branch: master
     tags: true
