@@ -56,9 +56,9 @@ test('getClassName() returns "array" if [] passed in', t => {
   t.end();
 });
 
-test('getClassName() returns "function" if () passed in', t => {
+test('getClassName() returns function name if () passed in', t => {
   var testMember = function() { },
-    expected = 'function',
+    expected = 'testMember',
     actual;
 
   actual = PoolManager.getClassName(testMember);
