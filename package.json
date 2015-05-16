@@ -38,6 +38,6 @@
     "uglifyify": "^3.0.1"
   },
   "dependencies": {
-    "aronnax-store": "^0.5.2"
+    "aronnax-store": "^0.6.0"
   }
 }
